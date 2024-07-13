@@ -1,15 +1,12 @@
 ul {
-    /* list-style-type: none; */
     margin-top: 10px;
 }
-/* li {
-    list-style: none;
-
-} */
-/* input[type="checkbox"]{
-    text-align: left;    
-} */
 
 span {
     padding: 5px;
 }
+
+.right {
+    float: right;
+}
+
