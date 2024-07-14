@@ -6,7 +6,7 @@ span {
     padding: 5px;
 }
 
-.right {
+li > button {
     float: right;
 }
 
