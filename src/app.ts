@@ -1,12 +1,25 @@
-import {Task} from "./task";
+import {Task} from "./task.js";
+import { service } from "./local-storage-service.js"
 
-let tasks: Task[] = JSON.parse(localStorage.getItem('tasks') ?? '[]');
+service.getAll().forEach(renderTask);
 
-const taskList = document.querySelector<HTMLUListElement>('ul.tasks');
-
-tasks.forEach(renderTask);
+const taskForm = document.querySelector('form.task')! as HTMLFormElement;
+taskForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const descriptionElem = document.querySelector<HTMLInputElement>('input.task')!;
+    if (descriptionElem.value){
+        const task = { id: 0, description: descriptionElem.value, done: false };
+        renderTask(task);
+        service.create(task);
+        descriptionElem.value = "";
+        return;
+    }
+    alert('Please enter a task description');    
+});
 
 function renderTask(task: Task){
+    const taskList = document.querySelector<HTMLUListElement>('ul.tasks');
+
     const spanElem = document.createElement('span');
     spanElem.innerText = task.description;
 
@@ -15,7 +28,7 @@ function renderTask(task: Task){
     checkElem.checked = task.done;
     checkElem.addEventListener('change', () => {
         task.done = !task.done;
-        localStorage.setItem('tasks', JSON.stringify(tasks));
+        service.update(task);
     });
 
     const labelElem = document.createElement('label'); 
@@ -33,30 +46,7 @@ function renderTask(task: Task){
     taskList?.appendChild(taskElem);
 
     btnElem.addEventListener('click', () => {
-        taskList?.removeChild(taskElem);
-        const index = tasks.findIndex(x=> x.id === task.id);
-        tasks.splice(index, 1);
-        localStorage.setItem('tasks', JSON.stringify(tasks));
+        taskList?.removeChild(taskElem);        
+        service.delete(task.id);
     });
 }
-
-function addTask(task: Task):void {
-    task.id = tasks.length;
-    tasks.push(task);    
-}
-
-const taskForm = document.querySelector('form.task')! as HTMLFormElement;
-taskForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const descriptionElem = document.querySelector<HTMLInputElement>('input.task')!;
-    if (descriptionElem.value){
-        const task = { id:0, description: descriptionElem.value, done: false };
-        renderTask(task);
-        addTask(task);
-
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-        descriptionElem.value = "";
-        return;
-    }
-    alert('Please enter a task description');    
-});
