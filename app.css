@@ -10,3 +10,12 @@ li > button {
     float: right;
 }
 
+form {
+    margin-top: 10px;
+}
+
+.panel{
+    margin-top: 5px;
+    min-height: 400px;
+}
+

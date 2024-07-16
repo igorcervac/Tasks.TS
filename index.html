@@ -11,25 +11,33 @@
 </head>
 <body>
     <div class="container">
-        <div class="col-xs-offset-6">
-            <h2>Tasks</h2>
-        </div>
         <div class="row">
-            <div class="col-xs-4 col-xs-offset-4">
-                <form class="form form-inline task">   
-                    <div class="form-group"> 
-                        <label for="task">Task</label>
-                        <input id="task" type="text" class="form-control task" placeholder="Task description">
-                    </div>
-                    <button type="submit" class="btn btn-primary task">Add</button>
-                </form>
-                <ul class="list-group tasks">
-                <ul>
-            </div>
-        </div>
+            <div class="col-xs-6 col-xs-offset-3">                
+                <div class="panel panel-default">                   
+                    <div class="panel-body">   
+                        <h2 style="text-align: center;">Tasks</h2>                    
+                        <form class="form form-horizontal task">   
+                            <div class="form-group"> 
+                                <label for="task" class="control-label col-xs-1">Task</label>
+                                <div class="col-xs-9">
+                                    <input id="task" type="text" class="form-control task" placeholder="Task description">
+                                </div>
+                                <div class="col-xs-2">
+                                    <button type="submit" class="btn btn-primary task">Add</button>
+                                </div>
+                            </div>                            
+                        </form>       
+                        <ul class="list-group tasks">
+                        <ul>
+                        </ul>
+                    </div>                        
+                </div>  
+            </div>         
+        </div>        
     </div>
     <script type="module" src="/build/task.js"></script>
     <script type="module" src="/build/service.js"></script>
+    <script type="module" src="/build/local-storage-service.js"></script>
     <script type="module" src="/build/app.js"></script>
 </body>
 </html>
