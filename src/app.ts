@@ -1,7 +1,8 @@
 import {Task} from "./task.js";
 import { service } from "./local-storage-service.js"
 
-service.getAll().forEach(renderTask);
+const tasks = service.getAll();
+tasks.forEach(renderTask);
 
 const taskForm = document.querySelector('form.task')! as HTMLFormElement;
 taskForm.addEventListener('submit', (event) => {
