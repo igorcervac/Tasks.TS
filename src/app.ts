@@ -5,18 +5,7 @@ const tasks = service.getAll();
 tasks.forEach(renderTask);
 
 const taskForm = document.querySelector('form.task')! as HTMLFormElement;
-taskForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const descriptionElem = document.querySelector<HTMLInputElement>('input.task')!;
-    if (descriptionElem.value){
-        const task = { id: 0, description: descriptionElem.value, done: false };
-        renderTask(task);
-        service.create(task);
-        descriptionElem.value = "";
-        return;
-    }
-    alert('Please enter a task description');    
-});
+taskForm.addEventListener('submit', onSubmit);
 
 function renderTask(task: Task){
     const taskList = document.querySelector<HTMLUListElement>('ul.tasks');
@@ -50,4 +39,18 @@ function renderTask(task: Task){
         taskList?.removeChild(taskElem);        
         service.delete(task.id);
     });
+}
+
+function onSubmit(event: SubmitEvent){
+    event.preventDefault();
+
+    const descriptionElem = document.querySelector<HTMLInputElement>('input.task')!;
+    if (descriptionElem.value){
+        const task = { id: 0, description: descriptionElem.value, done: false };
+        renderTask(task);
+        service.create(task);
+        taskForm.reset();
+        return;
+    }
+    alert('Please enter a task description'); 
 }
